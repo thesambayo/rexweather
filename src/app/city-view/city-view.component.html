@@ -1,0 +1,74 @@
+<div
+  class="flex flex-col bg-gray-50 border rounded p-4 min-w-60 max-w-xs w-full"
+>
+  <h3 class="font-bold text-xl" title="city, country short name">
+    {{ cityWeather().name }}, {{ cityWeather().sys.country }}
+  </h3>
+  <p class="text-sm text-gray-500" title="today's date">
+    {{ today | date : "longDate" }}
+  </p>
+
+  <!-- weather icon/ use a ng optimized whatever -->
+  <div class="mt-6 self-center inline-flex items-center justify-center">
+    <img
+      class="size-10"
+      src="http://openweathermap.org/img/wn/{{
+        cityWeather().weather[0].icon
+      }}.png"
+      alt=""
+    />
+  </div>
+
+  <div class="flex flex-row items-center justify-center mt-6">
+    <div class="font-medium text-6xl" title="main temperature">
+      {{
+        cityWeather().main.temp - BASEKELVINTOCELCIUSUNIT | number : "1.0-0"
+      }}&deg;
+    </div>
+    <div class="flex flex-col items-center ml-6">
+      <h4 title="weather">{{ cityWeather().weather[0].main }}</h4>
+      <div class="mt-1">
+        <span
+          class="text-sm font-light text-gray-500"
+          title="minimum temperature"
+        >
+          {{
+            cityWeather().main.temp_min - BASEKELVINTOCELCIUSUNIT
+              | number : "1.0-0"
+          }}&deg;C
+        </span>
+      </div>
+      <div>
+        <span
+          class="text-sm font-light text-gray-500"
+          title="maximum temperature"
+        >
+          {{
+            cityWeather().main.temp_max - BASEKELVINTOCELCIUSUNIT
+              | number : "1.0-0"
+          }}&deg;C
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row justify-between mt-6">
+    <div class="flex flex-col">
+      <div class="font-medium text-sm">Wind</div>
+      <div class="text-sm text-gray-500">
+        {{ cityWeather().wind.speed }} km/h
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <div class="font-medium text-sm">Humidity</div>
+      <div class="text-sm text-gray-500">
+        {{ cityWeather().main.humidity }}%
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <div class="font-medium text-sm">Visibility</div>
+      <div class="text-sm text-gray-500">
+        {{ cityWeather().visibility / 1000 }}km
+      </div>
+    </div>
+  </div>
+</div>
